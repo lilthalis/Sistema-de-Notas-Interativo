@@ -27,14 +27,15 @@ class GradeSystem {
         const name = document.getElementById('studentName').value.trim();
         const grade1 = parseFloat(document.getElementById('grade1').value);
         const grade2 = parseFloat(document.getElementById('grade2').value);
+        const grade3 = parseFloat(document.getElementById('grade3').value);
 
         // Validação dos campos
-        if (!this.validateInputs(name, grade1, grade2)) {
+        if (!this.validateInputs(name, grade1, grade2, grade3)) {
             return;
         }
 
         // Calcular média e situação
-        const average = this.calculateAverage(grade1, grade2);
+        const average = this.calculateAverage(grade1, grade2, grade3);
         const status = this.getStatus(average);
 
         // Criar objeto do aluno
@@ -43,6 +44,7 @@ class GradeSystem {
             name: name,
             grade1: grade1,
             grade2: grade2,
+            grade3: grade3,
             average: average,
             status: status
         };
@@ -55,7 +57,7 @@ class GradeSystem {
     }
 
     // Validar entradas do usuário
-    validateInputs(name, grade1, grade2) {
+    validateInputs(name, grade1, grade2, grade3) {
         if (!name) {
             alert('Por favor, digite o nome do aluno.');
             return false;
@@ -71,12 +73,17 @@ class GradeSystem {
             return false;
         }
 
+        if (isNaN(grade3) || grade3 < 0 || grade3 > 10) {
+            alert('Por favor, digite uma nota 3 válida (0-10).');
+            return false;
+        }
+
         return true;
     }
 
-    // Calcular média
-    calculateAverage(grade1, grade2) {
-        return ((grade1 + grade2) / 2).toFixed(1);
+    // Calcular média com 3 notas
+    calculateAverage(grade1, grade2, grade3) {
+        return ((grade1 + grade2 + grade3) / 3).toFixed(1);
     }
 
     // Determinar situação do aluno
@@ -133,7 +140,7 @@ class GradeSystem {
         if (this.students.length === 0) {
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="6" style="text-align: center; color: #718096;">
+                    <td colspan="7" style="text-align: center; color: #718096;">
                         Nenhum aluno cadastrado. Adicione o primeiro aluno usando o formulário acima.
                     </td>
                 </tr>
@@ -146,6 +153,7 @@ class GradeSystem {
                 <td>${student.name}</td>
                 <td>${student.grade1}</td>
                 <td>${student.grade2}</td>
+                <td>${student.grade3}</td>
                 <td><strong>${student.average}</strong></td>
                 <td>
                     <span class="status-${student.status === 'Aprovado' ? 'approved' : 'failed'}">
@@ -181,13 +189,14 @@ document.addEventListener('DOMContentLoaded', () => {
 // Adicionar alguns alunos de exemplo (opcional - para teste)
 function addSampleData() {
     const sampleStudents = [
-        { name: "Ana Silva", grade1: 8.5, grade2: 7.5 },
-        { name: "Carlos Oliveira", grade1: 5.0, grade2: 6.0 },
-        { name: "Mariana Santos", grade1: 9.0, grade2: 8.5 }
+        { name: "Ana Silva", grade1: 8.5, grade2: 7.5, grade3: 9.0 },
+        { name: "Carlos Oliveira", grade1: 5.0, grade2: 6.0, grade3: 4.5 },
+        { name: "Mariana Santos", grade1: 9.0, grade2: 8.5, grade3: 7.5 },
+        { name: "João Pereira", grade1: 7.0, grade2: 6.5, grade3: 8.0 }
     ];
 
     sampleStudents.forEach(student => {
-        const average = ((student.grade1 + student.grade2) / 2).toFixed(1);
+        const average = ((student.grade1 + student.grade2 + student.grade3) / 3).toFixed(1);
         const status = average >= 6 ? 'Aprovado' : 'Reprovado';
         
         window.gradeSystem.addStudent({
