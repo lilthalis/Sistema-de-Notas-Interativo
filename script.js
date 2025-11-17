@@ -54,27 +54,30 @@ class GradeSystem {
         this.clearForm();
         this.renderTable();
         this.updateSummary();
+        
+        // Feedback visual
+        this.showSuccessMessage('Aluno adicionado com sucesso!');
     }
 
     // Validar entradas do usuário
     validateInputs(name, grade1, grade2, grade3) {
         if (!name) {
-            alert('Por favor, digite o nome do aluno.');
+            this.showErrorMessage('Por favor, digite o nome do aluno.');
             return false;
         }
 
         if (isNaN(grade1) || grade1 < 0 || grade1 > 10) {
-            alert('Por favor, digite uma nota 1 válida (0-10).');
+            this.showErrorMessage('Por favor, digite uma nota 1 válida (0-10).');
             return false;
         }
 
         if (isNaN(grade2) || grade2 < 0 || grade2 > 10) {
-            alert('Por favor, digite uma nota 2 válida (0-10).');
+            this.showErrorMessage('Por favor, digite uma nota 2 válida (0-10).');
             return false;
         }
 
         if (isNaN(grade3) || grade3 < 0 || grade3 > 10) {
-            alert('Por favor, digite uma nota 3 válida (0-10).');
+            this.showErrorMessage('Por favor, digite uma nota 3 válida (0-10).');
             return false;
         }
 
@@ -104,13 +107,14 @@ class GradeSystem {
             this.saveToLocalStorage();
             this.renderTable();
             this.updateSummary();
+            this.showInfoMessage('Aluno removido com sucesso!');
         }
     }
 
     // Limpar todos os dados
     clearAllData() {
         if (this.students.length === 0) {
-            alert('Não há dados para limpar.');
+            this.showInfoMessage('Não há dados para limpar.');
             return;
         }
 
@@ -119,7 +123,7 @@ class GradeSystem {
             this.saveToLocalStorage();
             this.renderTable();
             this.updateSummary();
-            alert('Todos os dados foram removidos com sucesso!');
+            this.showSuccessMessage('Todos os dados foram removidos com sucesso!');
         }
     }
 
@@ -133,15 +137,16 @@ class GradeSystem {
         document.getElementById('studentForm').reset();
     }
 
-    // Renderizar tabela
+    // Renderizar tabela com ícones
     renderTable() {
         const tableBody = document.getElementById('tableBody');
         
         if (this.students.length === 0) {
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="7" style="text-align: center; color: #718096;">
-                        Nenhum aluno cadastrado. Adicione o primeiro aluno usando o formulário acima.
+                    <td colspan="7" style="text-align: center; color: #718096; padding: 40px;">
+                        <i class="fas fa-users" style="font-size: 3rem; color: #cbd5e0; margin-bottom: 10px; display: block;"></i>
+                        Nenhum aluno cadastrado. <br>Adicione o primeiro aluno usando o formulário acima.
                     </td>
                 </tr>
             `;
@@ -150,19 +155,21 @@ class GradeSystem {
 
         tableBody.innerHTML = this.students.map(student => `
             <tr>
-                <td>${student.name}</td>
+                <td><i class="fas fa-user-graduate"></i> ${student.name}</td>
                 <td>${student.grade1}</td>
                 <td>${student.grade2}</td>
                 <td>${student.grade3}</td>
-                <td><strong>${student.average}</strong></td>
+                <td><strong><i class="fas fa-calculator"></i> ${student.average}</strong></td>
                 <td>
                     <span class="status-${student.status === 'Aprovado' ? 'approved' : 'failed'}">
-                        ${student.status}
+                        ${student.status === 'Aprovado' ? 
+                          '<i class="fas fa-check-circle"></i> Aprovado' : 
+                          '<i class="fas fa-times-circle"></i> Reprovado'}
                     </span>
                 </td>
                 <td>
-                    <button class="btn-remove" onclick="gradeSystem.removeStudent(${student.id})">
-                        🗑️ Remover
+                    <button class="btn-remove" onclick="gradeSystem.removeStudent(${student.id})" title="Remover aluno">
+                        <i class="fas fa-trash-alt"></i> Remover
                     </button>
                 </td>
             </tr>
@@ -178,6 +185,60 @@ class GradeSystem {
         document.getElementById('totalStudents').textContent = totalStudents;
         document.getElementById('approvedCount').textContent = approvedCount;
         document.getElementById('failedCount').textContent = failedCount;
+    }
+
+    // Mensagens de feedback
+    showSuccessMessage(message) {
+        this.showMessage(message, 'success');
+    }
+
+    showErrorMessage(message) {
+        this.showMessage(message, 'error');
+    }
+
+    showInfoMessage(message) {
+        this.showMessage(message, 'info');
+    }
+
+    showMessage(message, type) {
+        // Remove mensagem anterior se existir
+        const existingMessage = document.querySelector('.alert-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+
+        const alert = document.createElement('div');
+        alert.className = `alert-message alert-${type}`;
+        alert.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation-triangle' : 'info'}-circle"></i>
+            ${message}
+        `;
+
+        // Adiciona estilos inline para a mensagem
+        alert.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            ${type === 'success' ? 'background: #38a169;' : 
+              type === 'error' ? 'background: #e53e3e;' : 
+              'background: #3182ce;'}
+        `;
+
+        document.body.appendChild(alert);
+
+        // Remove a mensagem após 3 segundos
+        setTimeout(() => {
+            if (alert.parentNode) {
+                alert.remove();
+            }
+        }, 3000);
     }
 }
 
