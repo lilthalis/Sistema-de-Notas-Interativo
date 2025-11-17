@@ -1,4 +1,192 @@
-/* No seu style.css, adiciona isso */
+/* Reset e Configurações Gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header h1 i {
+    margin-right: 15px;
+    animation: bounce 2s infinite;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+header p i {
+    margin-right: 8px;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-5px);
+    }
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Seções Principais */
+.form-section, .results-section {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+}
+
+.form-section h2, .results-section h2 {
+    color: #4a5568;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.form-section h2 i, .results-section h2 i {
+    margin-right: 10px;
+    color: #667eea;
+}
+
+/* Formulário */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: #667eea;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.grades-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+/* Botões */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary i {
+    margin-right: 8px;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #fc8181, #f56565);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-top: 10px;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+}
+
+.btn-danger i {
+    margin-right: 8px;
+}
+
+.btn-remove {
+    background: #f56565;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.3s ease;
+}
+
+.btn-remove:hover {
+    background: #e53e3e;
+}
+
+.btn-remove i {
+    margin-right: 5px;
+}
+
+/* Tabela */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
 
 table {
     width: 100%;
@@ -6,14 +194,13 @@ table {
     background: white;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 th, td {
     padding: 12px 15px;
     text-align: center;
     border-bottom: 1px solid #e2e8f0;
-    white-space: nowrap; /* impede quebra de linha */
+    white-space: nowrap;
 }
 
 th {
@@ -22,11 +209,11 @@ th {
     font-weight: 600;
 }
 
-/* A primeira coluna (nome) alinhada à esquerda */
+/* Alinhamento específico das colunas */
 th:first-child,
 td:first-child {
     text-align: left;
-    min-width: 200px; /* largura mínima para o nome */
+    min-width: 200px;
 }
 
 /* Colunas das notas mais estreitas */
@@ -37,5 +224,198 @@ td:nth-child(2),
 td:nth-child(3),
 td:nth-child(4) {
     min-width: 80px;
+}
+
+/* Coluna da média */
+th:nth-child(5),
+td:nth-child(5) {
+    min-width: 100px;
+    font-weight: bold;
+}
+
+/* Coluna situação */
+th:nth-child(6),
+td:nth-child(6) {
+    min-width: 120px;
+}
+
+/* Coluna ações */
+th:nth-child(7),
+td:nth-child(7) {
+    min-width: 100px;
+}
+
+tr:hover {
+    background: #f7fafc;
+}
+
+/* Status dos Alunos */
+.status-approved {
+    background-color: #c6f6d5 !important;
+    color: #22543d;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 20px;
     text-align: center;
+    display: inline-block;
+    min-width: 100px;
+}
+
+.status-failed {
+    background-color: #fed7d7 !important;
+    color: #742a2a;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 20px;
+    text-align: center;
+    display: inline-block;
+    min-width: 100px;
+}
+
+.status-approved i, .status-failed i {
+    margin-right: 5px;
+}
+
+/* Resumo */
+.summary {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-left: 4px solid #667eea;
+}
+
+.summary p {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.summary i {
+    margin-right: 8px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+    opacity: 0.8;
+}
+
+footer i {
+    margin-right: 5px;
+}
+
+/* Mensagens de Alert */
+.alert-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .form-section, .results-section {
+        padding: 20px;
+    }
+    
+    .grades-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .summary p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .form-section, .results-section {
+        padding: 15px;
+    }
+    
+    .grades-container {
+        grid-template-columns: 1fr;
+    }
+    
+    th, td {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .btn-primary, .btn-danger {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    /* Ajustes para mobile na tabela */
+    .table-container {
+        font-size: 12px;
+    }
+    
+    th:first-child,
+    td:first-child {
+        min-width: 150px;
+    }
+    
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4) {
+        min-width: 60px;
+    }
+}
+
+/* Efeitos de foco e hover melhorados */
+.form-group input:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+}
+
+.btn-primary:active, .btn-danger:active {
+    transform: translateY(0);
+}
+
+/* Melhoria na visualização da tabela vazia */
+td[colspan] {
+    background: #f7fafc;
+    font-style: italic;
 }
