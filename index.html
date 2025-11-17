@@ -5,61 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Notas Interativo</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📊 Sistema de Notas Interativo</h1>
-            <p>Cadastre alunos e calcule automaticamente suas médias</p>
+            <h1><i class="fas fa-graduation-cap"></i> Sistema de Notas Interativo</h1>
+            <p><i class="fas fa-chart-line"></i> Cadastre alunos e calcule automaticamente suas médias</p>
         </header>
 
         <main>
             <!-- Formulário de Cadastro -->
             <section class="form-section">
-                <h2>Cadastrar Aluno</h2>
+                <h2><i class="fas fa-user-plus"></i> Cadastrar Aluno</h2>
                 <form id="studentForm">
                     <div class="form-group">
-                        <label for="studentName">Nome do Aluno:</label>
+                        <label for="studentName">
+                            <i class="fas fa-user"></i> Nome do Aluno:
+                        </label>
                         <input type="text" id="studentName" placeholder="Digite o nome completo" required>
                     </div>
                     
                     <div class="grades-container">
                         <div class="form-group">
-                            <label for="grade1">Nota 1:</label>
+                            <label for="grade1">
+                                <i class="fas fa-file-alt"></i> Nota 1:
+                            </label>
                             <input type="number" id="grade1" min="0" max="10" step="0.1" placeholder="0.0 - 10.0" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="grade2">Nota 2:</label>
+                            <label for="grade2">
+                                <i class="fas fa-file-alt"></i> Nota 2:
+                            </label>
                             <input type="number" id="grade2" min="0" max="10" step="0.1" placeholder="0.0 - 10.0" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="grade3">Nota 3:</label>
+                            <label for="grade3">
+                                <i class="fas fa-file-alt"></i> Nota 3:
+                            </label>
                             <input type="number" id="grade3" min="0" max="10" step="0.1" placeholder="0.0 - 10.0" required>
                         </div>
                     </div>
                     
                     <button type="submit" class="btn-primary">
-                        ✅ Adicionar Aluno
+                        <i class="fas fa-user-plus"></i> Adicionar Aluno
                     </button>
                 </form>
             </section>
 
             <!-- Tabela de Resultados -->
             <section class="results-section">
-                <h2>Resultados dos Alunos</h2>
+                <h2><i class="fas fa-list-alt"></i> Resultados dos Alunos</h2>
                 <div class="table-container">
                     <table id="studentsTable">
                         <thead>
                             <tr>
-                                <th>Nome do Aluno</th>
-                                <th>Nota 1</th>
-                                <th>Nota 2</th>
-                                <th>Nota 3</th>
-                                <th>Média</th>
-                                <th>Situação</th>
-                                <th>Ações</th>
+                                <th><i class="fas fa-user"></i> Nome do Aluno</th>
+                                <th><i class="fas fa-file-alt"></i> Nota 1</th>
+                                <th><i class="fas fa-file-alt"></i> Nota 2</th>
+                                <th><i class="fas fa-file-alt"></i> Nota 3</th>
+                                <th><i class="fas fa-calculator"></i> Média</th>
+                                <th><i class="fas fa-chart-bar"></i> Situação</th>
+                                <th><i class="fas fa-cog"></i> Ações</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -69,18 +79,21 @@
                 </div>
                 
                 <div class="summary">
-                    <p>Total de alunos: <span id="totalStudents">0</span></p>
-                    <p>Aprovados: <span id="approvedCount">0</span> | Reprovados: <span id="failedCount">0</span></p>
+                    <p><i class="fas fa-users"></i> Total de alunos: <span id="totalStudents">0</span></p>
+                    <p>
+                        <i class="fas fa-check-circle" style="color: #38a169;"></i> Aprovados: <span id="approvedCount">0</span> | 
+                        <i class="fas fa-times-circle" style="color: #e53e3e;"></i> Reprovados: <span id="failedCount">0</span>
+                    </p>
                 </div>
                 
                 <button id="clearAll" class="btn-danger">
-                    🗑️ Limpar Todos os Dados
+                    <i class="fas fa-trash-alt"></i> Limpar Todos os Dados
                 </button>
             </section>
         </main>
 
         <footer>
-            <p>Sistema de Notas Interativo &copy; 2025</p>
+            <p><i class="fas fa-copyright"></i> Sistema de Notas Interativo 2025</p>
         </footer>
     </div>
 
